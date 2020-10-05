@@ -22,6 +22,20 @@ int main()
     //Problema 1, 4 y 5
     int amount;
 
+    //Problema 3
+    bool compare;
+
+    //Problema 6
+    char str[80]={};
+    char num[80]={};
+
+    //Problema 11
+    char ref[15][20];
+    char action;
+    char i;
+    short j, i_short;
+    short position[2];
+
     while(loop){ //while ejercicios
 
         cout<<"\nIngrese el ejecicio a ejecutar (-1 para ir a los problemas): "; cin>>selec;
@@ -132,39 +146,107 @@ int main()
 
         case 3:{ //Problema 3***
 
+            cout<<"Ingrese una palabra: ";cin>>str;
+            cout<<"Ingrese otra palabra: ";cin>>num;
+
+            compare = string_compare(str, num);
+
+            cout<<compare<<endl;
+
             break;
         }
 
         case 4:{ //Problema 4
 
-            char* str = new char[5]{'1', '2', '3', '4', '5'};
+            cout<<"Ingrese un numero: ";cin>>str;
 
             amount= str_to_int(str);
             cout<<str<<" ---> "<<amount<<endl;
-
-            str[0] = '-';
-            amount= str_to_int(str);
-            cout<<str<<" ---> "<<amount<<endl;
-
-            delete[] str;
 
             break;
         }
 
         case 5:{ //Problema 5
 
-            char* str = new char[7]; //se tiene en cuenta el \0
+            cout<<"Ingrese un numero: ";cin>>amount;
 
-            amount = -12345;
-            int_to_str(amount, str, 7);
+            int_to_str(amount, str);
             cout<<amount<<" ---> "<<str<<endl;
 
-            amount = 123456;
-            int_to_str(amount, str, 7);
-            cout<<amount<<" ---> "<<str<<endl;
+            break;
+        }
 
-            delete[] str;
+        case 6:{ //Problema 6
 
+            cout<<"Ingrese una palabra: ";cin>>str;
+
+            cout<<"\nOriginal: "<<str<<" ---> ";
+
+            min_to_may(str);
+
+            cout<<"En mayusculas: "<<str<<endl;
+
+            break;
+        }
+
+        case 7:{ //Problema 7
+            cout<<"Ingrese una palabra: ";cin>>str;
+
+            cout<<"\nOriginal: "<<str<<" ---> ";
+
+            delete_rep_letters(str);
+
+            cout<<"Sin repetidos: "<<str<<endl;
+            break;
+        }
+
+        case 8:{ //Problema 8
+            cout<<"Ingrese una cadena de caracteres: ";cin>>str;
+
+            cout<<"\nOriginal: "<<str<<" ---> ";
+
+            separate_int_from_char(str, num);
+
+            cout<<"Texto: "<<str<<" ; Numeros: "<<num<<endl;
+            break;
+        }
+
+        case 9:{ //Problema 9***
+
+            break;
+        }
+
+        case 11:{
+
+              generate_ref(ref);
+              compare = true;
+
+              while(compare){
+                  cout<<"Ingrese 'r' para reservar, 'c' para cancelar, 'v' para visualizar y 's' para salir: ";cin>>action;
+
+                  if(int(action) >= 65 && int(action) <= 90) action = char(int(action) + 32); //convierte action en mayus
+
+                  if(action == 'r' || action == 'c'){
+
+                      cout<<"fila (A-O): ";cin>>i;
+                      cout<<"columna (1-20): ";cin>>j;
+
+                      i_short = short(i);
+
+                      if( j>=1 && j<=20 && ((i_short>=65 && i_short <=79) || (i_short>=97 && i_short <=111)) ){
+                        get_position(i, j, position);
+                        action_ref(ref, position, action);
+                      }
+                      else cout<<"Entrada no valida!"<<endl;
+                  }
+
+                  else if (action == 'v') print_ref(ref);
+
+                  else if (action == 's') compare = false;
+
+                  else cout<<"Opcion no valida"<<endl;
+
+              }
             break;
         }
 
