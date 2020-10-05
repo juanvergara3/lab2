@@ -192,8 +192,6 @@ delete[]res;
 
 //Problema 8
 void separate_int_from_char(char *str, char *num){
-/*str tiene numeros y letras. Despues de ejecutada str tiene solo letras y num solo numeros.
-NOTA: tanto str como num son arrays de char*/
 
     int num_index = 0, size, res_index = 0;
     char temp;
@@ -227,6 +225,57 @@ NOTA: tanto str como num son arrays de char*/
     clone_array(str, res, size);
 
     delete[]res;
+}
+
+//Problema 9
+int separate_and_sum(int n, int *array, int length){
+
+
+    int count = 1, min = length - n - 1, max, copy_index = 0, copy_size = length;
+    int potencia = pow(10, n-1), sum = 0, number = 0; //calcula el numero por el que hay que multiplicar cada digito
+
+
+    if(length%n != 0){ //si el array no se puede partir en numeros de n digitos
+
+        while((copy_size+copy_index)%n != 0) copy_index++; //define el indice en que empieza la copia
+
+        copy_size = length+copy_index; //y el tamaño de copy
+
+    }
+
+    int *copy = new int[copy_size]; //crea el arreglo en que se va a clonar array
+
+    if(length != copy_size)  for(int i = 0; i < copy_index; i++) copy[i] = 0; //pone 0's al principio si clone y array no son de igual tamaño
+
+    for(int i = 0, j = copy_index; i <= length; i++, j++) copy[j] = array[i]; //clona el array
+
+    length = copy_size - 1;
+    max = length;
+
+    for(; length > -1; length--, count++){ //recorre copy desde el final hasta el principio
+
+        if(count == n){ //cuando pasan n digitos
+
+            min = length;
+
+            for(int w = min, aux = potencia; w<= max; w++, aux /= 10){
+
+                number +=copy[w]*aux;
+
+            }
+
+            cout<<number<<' ';
+
+            count = 0;
+            sum += number;
+            number = 0;
+            max = length; //redefine el indice maximo
+        }
+
+
+    }
+    delete[] copy;
+    return sum;
 }
 
 //Problema 11
@@ -286,3 +335,92 @@ void print_ref(char ref[15][20]){
     cout<<endl;
     }
 }
+
+//Problema 14
+void fill_matrix(short matrix[5][5]){
+
+    short filler = 1;
+
+    for(int i = 0; i<5; i++){ //recorre filas
+
+        for(int j = 0; j<5; j++, filler++){ //recorre columnas
+
+          matrix[i][j] = filler;
+
+        }
+    }
+}
+
+void rotate_matrix(short matrix[5][5]){
+
+    int** matrix_copy = new int*[5];
+    for (int i = 0; i < 5; ++i) matrix_copy[i] = new int[5]; //crear array para la copia
+
+    for(int i = 0; i<5; i++){
+
+        for(int j = 0; j<5; j++){
+
+            matrix_copy[i][j] = matrix[i][j]; // hace una copia de la matriz riginal
+
+        }
+    }
+
+    int i_copy = 4, j_copy = 0;
+
+    for(int i = 0; i<5; i++, j_copy++){ //recorre filas
+
+
+
+        for(int j = 0; j<5; j++, i_copy--){ //recorre columnas
+
+            matrix[i][j] = matrix_copy[i_copy][j_copy]; //rota la matriz
+
+        }
+        i_copy = 4;
+    }
+
+    for(int i = 0; i < 5; ++i) delete[] matrix_copy[i]; //borrar array para de la copia
+    delete[] matrix_copy;
+}
+
+void print_matrix(short matrix[5][5]){
+
+    short fill;
+
+    for(int i = 0; i<5; i++){ //recorre filas
+
+        for(int j = 0; j<5; j++){ //recorre columnas
+
+            fill = matrix[i][j];
+
+            if(fill<10) cout<<fill<<"  ";
+            else cout<<fill<<' ';
+
+        }
+        cout<<endl;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 using namespace  std;
 
 //Problema 1
@@ -30,8 +31,16 @@ void delete_rep_letters(char *str);
 //Problema 8
 void separate_int_from_char(char *str, char *num);
 
+//Problema 9
+int separate_and_sum(int n, int *array, int length);
+
 //Problema 11
 void generate_ref(char ref[15][20]);
 void print_ref(char ref[15][20]);
 void action_ref(char ref[15][20], short *position, char action);
 void get_position(char i, short j, short *position);
+
+//Problema 14
+void fill_matrix(short matrix[5][5]);
+void rotate_matrix(short matrix[5][5]);
+void print_matrix(short matrix[5][5]);

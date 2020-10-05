@@ -29,12 +29,18 @@ int main()
     char str[80]={};
     char num[80]={};
 
+    //Problema 9
+    int array9[8] = {8,7,5,1,2,3,9,5};
+
     //Problema 11
     char ref[15][20];
     char action;
     char i;
     short j, i_short;
     short position[2];
+
+    //Problema 14
+    short matrix_5x5[5][5];
 
     while(loop){ //while ejercicios
 
@@ -211,12 +217,15 @@ int main()
             break;
         }
 
-        case 9:{ //Problema 9***
+        case 9:{ //Problema 9 *** terminar casos de prueba
+
+            amount = separate_and_sum(8, array9, 8);
+            cout<<"suma: "<<amount<<endl;
 
             break;
         }
 
-        case 11:{
+        case 11:{ //Problema 11
 
               generate_ref(ref);
               compare = true;
@@ -247,6 +256,35 @@ int main()
                   else cout<<"Opcion no valida"<<endl;
 
               }
+            break;
+        }
+
+        case 14:{ //Problema 14
+
+            cout<<"Original: "<<endl;
+            fill_matrix(matrix_5x5);
+            print_matrix(matrix_5x5);
+
+            cout<<"90: "<<endl;
+            rotate_matrix(matrix_5x5);
+            print_matrix(matrix_5x5);
+            cout<<endl;
+
+            cout<<"180: "<<endl;
+            rotate_matrix(matrix_5x5);
+            print_matrix(matrix_5x5);
+            cout<<endl;
+
+            cout<<"270: "<<endl;
+            rotate_matrix(matrix_5x5);
+            print_matrix(matrix_5x5);
+            cout<<endl;
+
+            cout<<"360: "<<endl;
+            rotate_matrix(matrix_5x5);
+            print_matrix(matrix_5x5);
+            cout<<endl;
+
             break;
         }
 
