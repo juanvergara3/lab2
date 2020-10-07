@@ -264,8 +264,6 @@ int separate_and_sum(int n, int *array, int length){
 
             }
 
-            cout<<number<<' ';
-
             count = 0;
             sum += number;
             number = 0;
@@ -276,6 +274,121 @@ int separate_and_sum(int n, int *array, int length){
     }
     delete[] copy;
     return sum;
+}
+
+//Problema 10
+void rom_to_arab(char *str){
+
+    int size = size_of_array(str), res = 0;
+
+    size--;
+
+    short normalized[size], current, next;
+
+    char temp_char;
+
+    //Normalizacion:
+    for(int k = 0; k<size; k++){ //convierte str cada letra de str a su equivalente decimal, en un arreglo de int (lo "normaliza")
+
+        temp_char = str[k];
+
+        switch (temp_char) {
+        case 'M':{
+            normalized[k] = 1000;
+            break;
+        }
+        case 'D':{
+            normalized[k] = 500;
+            break;
+        }
+        case 'C':{
+            normalized[k] = 100;
+            break;
+        }
+        case 'L':{
+            normalized[k] = 50;
+            break;
+        }case 'X':{
+            normalized[k] = 10;
+            break;
+        }
+        case 'V':{
+            normalized[k] = 5;
+            break;
+        }
+        case 'I':{
+            normalized[k] = 1;
+            break;
+        }
+        } //final switch
+    } //final for de "normalizacion"
+
+
+    //Transformacion numerica
+    for(int k = 0; k<size; k++){ //usa las reglas de los numeros romanos y genera el numero en un int
+
+        current = normalized[k];
+
+        if(k != size - 1){ //reglas de numeros romanos
+
+             next = normalized[k+1];
+
+            if( next <= current) res += current;
+
+            else res -= current;
+        }
+
+        else{ //para el ultimo numero que siempre se suma
+
+           res += current;
+
+        }
+    }
+
+    //conversion int ---> char[]
+    int_to_str(res, str);
+
+    size = count_digit(res);
+
+    str[size] = '\0';
+
+}
+
+bool validate_rom(char*str){
+
+    int size = size_of_array(str);
+
+    for(int k = 0; k<size - 1; k++){
+
+        if(str[k] != 'M' && str[k] != 'D' && str[k] != 'C' && str[k] != 'L' && str[k] != 'X' && str[k] != 'V' && str[k] != 'I'){
+            return false;
+        }
+    }
+    return true;
+}
+
+void uppercase(char *str){
+
+    int size = size_of_array(str);
+    short temp;
+
+    for(int k = 0; k<size; k++){
+
+        temp = short(str[k]);
+
+        if(temp>=97 && temp<=122) str[k] = char(temp - 32);
+
+    }
+
+}
+
+int count_digit(int n){
+    int count = 0;
+        while (n != 0) {
+            n = n / 10;
+            ++count;
+        }
+        return count;
 }
 
 //Problema 11

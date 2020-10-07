@@ -34,6 +34,12 @@ void separate_int_from_char(char *str, char *num);
 //Problema 9
 int separate_and_sum(int n, int *array, int length);
 
+//Problema 10
+void rom_to_arab(char *str);
+bool validate_rom(char*str);
+void uppercase(char *str);
+int count_digit(int number);
+
 //Problema 11
 void generate_ref(char ref[15][20]);
 void print_ref(char ref[15][20]);

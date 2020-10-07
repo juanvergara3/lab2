@@ -30,7 +30,7 @@ int main()
     char num[80]={};
 
     //Problema 9
-    int array9[8] = {8,7,5,1,2,3,9,5};
+    int array_p9[10] = {8,7,5,1,2,3,9,5,7,2};
 
     //Problema 11
     char ref[15][20];
@@ -217,10 +217,36 @@ int main()
             break;
         }
 
-        case 9:{ //Problema 9 *** terminar casos de prueba
+        case 9:{ //Problema 9
 
-            amount = separate_and_sum(8, array9, 8);
-            cout<<"suma: "<<amount<<endl;
+            cout<<"Para el arreglo {";
+            for(int k = 0; k<10; k++) cout<<(array_p9[k])<<' ';
+            cout<<"\b}"<<endl;
+
+            for(int i = 1; i < 10; i++){
+               cout<<"n = "<<i<<": suma = ";
+               amount = separate_and_sum(i, array_p9, 10);
+               cout<<amount<<endl;
+            }
+
+            break;
+        }
+
+        case 10:{
+            cout<<"Ingrese un numero romano: "; cin>>str;
+
+            uppercase(str);
+
+            compare = validate_rom(str);
+
+            if(compare == true){
+
+                cout<<"El numero ingresado fue: "<<str<<endl;
+                rom_to_arab(str);
+                cout<<"Que corresponde a: "<<str<<endl;
+            }
+
+            else cout<<"Entrada invalida!"<<endl;
 
             break;
         }
