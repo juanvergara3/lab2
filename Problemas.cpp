@@ -514,12 +514,120 @@ void print_matrix(short matrix[5][5]){
     }
 }
 
+//Problema 15
+void calculate_rectangles_intersection(int *r1, int *r2, int *res){
+
+    int c1[2], c2[2];
+    lower_right_corner(r1, c1); // se encuentran las esquinas inferiores derechas de los rectangulos
+    lower_right_corner(r2, c2);
+
+    short fill =1;
+
+    int xes[4] = {r1[0], r2[0], c1[0], c2[0]}, ys[4] ={r1[1], r2[1], c1[1], c2[1]}; // se crean arreglos con todas las x y todas las y
+
+    int x_max = max(xes), y_max = max(ys); // se haya la maxima x y la maxima y
+
+    int **plano; //se crea un plano en el que caben ambos rectangulos
+    plano = new int *[y_max];
+    for(int i = 0; i <y_max; i++)
+    plano[i] = new int[x_max];
+
+    fill_plane(plano, x_max, y_max);
+
+    draw_rectangle(r1, plano, fill);
+    draw_rectangle(r2, plano, fill+1);
+
+    /* //Imprime el plano para referencia
+    for(int i = 0; i<y_max; i++){
+        for(int j = 0; j<x_max; j++){
+          cout<<plano[i][j]<<' ';
+        }
+        cout<<endl;
+    }*/
+
+    calculate_intersection(plano, x_max, y_max, res, fill);
 
 
+        for(int i = 0; i < y_max; ++i) { //borrar el plano
+            delete[] plano[i];
+        }
+        delete[] plano;
+}
 
+void lower_right_corner(int *r, int *corner){
 
+    corner[0] = r[0] + r[2];
+    corner[1] = r[1] + r[3];
 
+}
 
+int max(int *x){
+
+    int big = x[0];
+
+    for(int i = 1; i < 4; i++){
+
+        if(x[i]>big) big = x[i];
+
+    }
+    return big;
+
+}
+
+void draw_rectangle(int *r, int **plano, short fill){
+
+    for(int i = r[0]; i<r[0]+r[2]; i++){
+
+        for(int j = r[1]; j<r[1]+r[3]; j++){
+
+          if(plano[j][i] != 0) plano[j][i] = fill+1;
+          else plano[j][i] = fill;
+
+        }
+
+    }
+
+}
+
+void fill_plane(int **plano, int x_max, int y_max){
+    for(int i = 0; i<y_max; i++){
+        for(int j = 0; j<x_max; j++){ //llena el plano con 0's
+          plano[i][j] = 0;
+        }
+    }
+}
+
+void calculate_intersection(int **plano, int x_max, int y_max, int *res, short fill){
+
+    bool corner = false, wide = false;
+    int current = 0, ancho = 0, i = 0, j = 0, area = 1;
+
+    fill += 2;
+
+    for(i = 0; i<y_max; i++){ //recorre filas
+
+        for(j = 0; j<x_max; j++){ //recorre columnas
+
+            current = plano[i][j]; //numero actual
+
+            if(current == fill && corner == false) {//solo calcula la esquina una vez
+                res[0] = j; // x de la esquina
+                res[1] = i; // y de la esquina
+                corner = true;
+                wide = true; //activa el contador del ancho
+            }
+            else if(current == fill && corner == true) area++; //va sumando al area del rectangulo
+
+            if(current == fill && wide == true) ancho++; //va sumando a la
+        }
+        if(wide == true) wide = false; //deja de contar despues de que cuenta las columnas una vez
+    }
+    if(ancho>0){
+        res[2] = ancho;
+        res[3] = area/ancho;
+    }
+    else for(int k = 0; k<4; k++) res[k] = 0;
+}
 
 
 

@@ -232,7 +232,7 @@ int main()
             break;
         }
 
-        case 10:{
+        case 10:{ //Problema 10
             cout<<"Ingrese un numero romano: "; cin>>str;
 
             uppercase(str);
@@ -310,6 +310,29 @@ int main()
             rotate_matrix(matrix_5x5);
             print_matrix(matrix_5x5);
             cout<<endl;
+
+            break;
+        }
+
+        case 15:{ //Problema 15 *** valores negativos?
+
+            //int r1[4] = {0, 0, 8, 4}, r2[4] = {5, 2, 6, 7}, res[4];
+            //int r1[4] = {1, 1, 8, 4}, r2[4] = {4, 3, 2, 4}, res[4];
+            //int r1[4] = {1, 1, 4, 2}, r2[4] = {2, 1, 1, 1}, res[4];
+            //int r1[4] = {1, 1, 1, 1}, r2[4] = {2, 2, 1, 1}, res[4];
+            //int r1[4] = {1, 1, 3, 1}, r2[4] = {3, 1, 3, 1}, res[4];
+            //int r1[4] = {1, 0, 1, 2}, r2[4] = {1, 1, 1, 2}, res[4];
+            //int r1[4] = {1, 1, 1, 1}, r2[4] = {1, 1, 1, 1}, res[4];
+            int r1[4] = {}, r2[4] = {}, res[4];
+
+            cout<<"Ingrese los datos del primer rectangulo en orden:"<<endl; cin>>r1[0]>>r1[1]>>r1[2]>>r1[3];
+            cout<<"Ingrese los datos del segundo rectangulo en orden:"<<endl; cin>>r2[0]>>r2[1]>>r2[2]>>r2[3];
+
+            calculate_rectangles_intersection(r1, r2, res);
+
+            cout<<"La interseccion es: {";
+            for(int k = 0; k<4; k++) cout<<res[k]<<", ";
+            cout<<"\b\b}"<<endl;
 
             break;
         }

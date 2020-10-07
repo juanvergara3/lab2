@@ -50,3 +50,13 @@ void get_position(char i, short j, short *position);
 void fill_matrix(short matrix[5][5]);
 void rotate_matrix(short matrix[5][5]);
 void print_matrix(short matrix[5][5]);
+
+//Problema 15
+void calculate_rectangles_intersection(int *r1, int *r2, int *res);
+void lower_right_corner(int *r, int *corner);
+int max(int *x);
+void draw_rectangle(int *r, int **plano, short fill);
+void fill_plane(int **plano, int x_max, int y_max);
+void calculate_intersection(int **plano, int x_max, int y_max, int *res, short fill);
+
+
