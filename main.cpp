@@ -337,6 +337,43 @@ int main()
             break;
         }
 
+        case 16:{ //Problema 16
+
+            cout<<"Ingrese el tamaño de la malla: "; cin>>size;
+
+            if(size>0 && size<30){
+
+                unsigned long long *result = new unsigned long long ;
+
+                *result = travel_grid(size);
+
+                cout<<"Para un malla de "<<size<<'x'<<size<<" hay "<<*result<<" caminos"<<endl;
+
+                delete result;
+
+            }
+            else cout<<"Ingrese un entero positivo (para valores cercanos y mayores que 30 los valores de desbordan y se obtienen resultados indeterminados)!"<<endl;
+
+
+
+            break;
+        }
+
+        case 17:{ //Problema 17 *** optimizar, version de arduino
+
+            cout<<"Ingrese un numero: "; cin>>size;
+
+            if(size > 0){
+
+                suma = sum_friendly_smaller_than_n(size);
+                cout<<"El resultado de la suma es: "<<suma<<endl;
+
+            }
+            else cout<<"Ingrese un numero positivo!"<<endl;
+
+            break;
+        }
+
         case -1:{ //salida del programa
             loop = false;
                     break;

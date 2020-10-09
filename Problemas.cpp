@@ -629,9 +629,108 @@ void calculate_intersection(int **plano, int x_max, int y_max, int *res, short f
     else for(int k = 0; k<4; k++) res[k] = 0;
 }
 
+//Problema 16
+unsigned long long travel_grid(int k){
 
+ /*
+Se observa que sin importar el camino que se tome el numero de movimientos hacia la derecha es igual al numero de movimientos hacia abajo (2n).
+por tanto, el problema se reduce a encontrar el numero de combinaciones de dichos movimientos 2nCn (se usa combinacion y no permutacion ya que
+muchos caminos se repiten, y la combinacion se encarga de no tener estos en cuenta)
+*/
 
+    return comb(2*k, k);
 
+}
+
+unsigned long long comb(int n, int r){
+/*
+Por formula se desbordan los valores ya que son numeros absurdamente grandes
+
+    unsigned long long res;
+    unsigned long long fact_n = fact(n), fact_k = fact(k), fact_n_k = fact(n-k);
+
+    res = (fact_n)/(fact_k*fact_n_k);
+
+    return res;
+
+En cada iteración se dividen las variables actuales que tienen el valor de los productos por su mcd. Asi se evita el desbordamiento (para valores grandes se desborda igual (n>~30))
+Esto tambien evita el calculo de factoriales.
+*/
+
+    unsigned long long p = 1, k = 1;
+
+        if (r != 0) {
+            while (r) {
+                p *= n;
+                k *= r;
+
+                unsigned long long m = __gcd(p, k); // maximo comun divisor de p y k
+
+                p /= m;
+                k /= m;
+
+                n--;
+                r--;
+            }
+        }
+
+        else
+            p = 1;
+
+        return p;
+}
+
+//Problema 17
+int get_divisores_sum(int n){
+
+    int res = 0;
+
+    if(n%2 == 0){ //si es par
+
+        for(int i = 1; i <= (n/2); i++){
+
+            if(n%i == 0) res += i;
+
+        }
+    }
+
+    else{ //si es impar
+        for(int i = 1; i <= (n/3); i++){
+
+            if(n%i == 0) res += i;
+
+        }
+    }
+
+    return res;
+}
+
+double sum_friendly_smaller_than_n(int n){
+
+    //la cantidad de iteraciones equivle a (n-220) C 2 + lo que tarde el calculo de divisores
+
+    n--;
+    int b = n-1;
+    double sum = 0;
+    int sum_a, sum_b;
+
+    for(; n>=220; n--){
+
+        sum_a = get_divisores_sum(n);
+
+        for(int k = b; k>=220; k--){
+
+            sum_b = get_divisores_sum(k);
+
+              if(sum_a == k && sum_b == n){
+                sum += n+k;
+                cout<<n<<' '<<k<<endl;
+              }
+        }
+        b--;
+    }
+    return sum;
+}
 
 
 

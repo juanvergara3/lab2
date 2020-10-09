@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
+#include <bits/stdc++.h>
 using namespace  std;
 
 //Problema 1
@@ -59,4 +60,10 @@ void draw_rectangle(int *r, int **plano, short fill);
 void fill_plane(int **plano, int x_max, int y_max);
 void calculate_intersection(int **plano, int x_max, int y_max, int *res, short fill);
 
+//Problema 16
+unsigned long long travel_grid(int);
+unsigned long long comb(int, int);
 
+//Problema 17
+int get_divisores_sum(int);
+double sum_friendly_smaller_than_n(int);
