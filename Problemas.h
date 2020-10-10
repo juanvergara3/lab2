@@ -47,6 +47,17 @@ void print_ref(char ref[15][20]);
 void action_ref(char ref[15][20], short *position, char action);
 void get_position(char i, short j, short *position);
 
+//Problema 12
+bool majic_square_verify(int);
+void fill_majic_square(int, int**);
+bool verify_col(int**, int, int);
+bool verify_fil(int**, int, int);
+bool verify_diag(int**, int, int);
+int get_constant(int**, int);
+bool verify_no_repetition(int**, int);
+
+//Problema 13
+
 //Problema 14
 void fill_matrix(short matrix[5][5]);
 void rotate_matrix(short matrix[5][5]);
@@ -66,4 +77,6 @@ unsigned long long comb(int, int);
 
 //Problema 17
 int get_divisores_sum(int);
-double sum_friendly_smaller_than_n(int);
+long sum_friendly_smaller_than_n(int);
+
+//Problema 18

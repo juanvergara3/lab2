@@ -150,14 +150,15 @@ int main()
             break;
         }
 
-        case 3:{ //Problema 3***
+        case 3:{ //Problema 3
 
             cout<<"Ingrese una palabra: ";cin>>str;
             cout<<"Ingrese otra palabra: ";cin>>num;
 
             compare = string_compare(str, num);
 
-            cout<<compare<<endl;
+            if (compare == true) cout<<"Las cadenas son iguales"<<endl;
+            else cout<<"Las cadenas son distintas"<<endl;
 
             break;
         }
@@ -285,6 +286,31 @@ int main()
             break;
         }
 
+        case 12:{ //Problema 12
+
+            //ingresar el tamano de la matriz y llenarla 1 por 1
+
+            cout<<"Ingrese el tamaño del cuadrado magico: "; cin>>size;
+
+            if(size>0) {
+
+                compare = majic_square_verify(size);
+
+                if(compare == true) cout<<"Es un cuadrado magico"<<endl;
+                else cout<<"No es un cuadrado magico"<<endl;
+
+            }
+
+            else cout<<"Ingrese un tamaño valido!"<<endl;
+
+            break;
+        }
+
+        case 13:{//Problema 13 ***
+
+            break;
+        }
+
         case 14:{ //Problema 14
 
             cout<<"Original: "<<endl;
@@ -314,19 +340,24 @@ int main()
             break;
         }
 
-        case 15:{ //Problema 15 *** valores negativos?
+        case 15:{ //Problema 15
 
-            //int r1[4] = {0, 0, 8, 4}, r2[4] = {5, 2, 6, 7}, res[4];
-            //int r1[4] = {1, 1, 8, 4}, r2[4] = {4, 3, 2, 4}, res[4];
-            //int r1[4] = {1, 1, 4, 2}, r2[4] = {2, 1, 1, 1}, res[4];
-            //int r1[4] = {1, 1, 1, 1}, r2[4] = {2, 2, 1, 1}, res[4];
-            //int r1[4] = {1, 1, 3, 1}, r2[4] = {3, 1, 3, 1}, res[4];
-            //int r1[4] = {1, 0, 1, 2}, r2[4] = {1, 1, 1, 2}, res[4];
-            //int r1[4] = {1, 1, 1, 1}, r2[4] = {1, 1, 1, 1}, res[4];
+            //Algunas pruebas predefinidas y sus respectivos resultados esperados, para revisar con mayor facilidad
+
+            //int r1[4] = {0, 0, 8, 4}, r2[4] = {5, 2, 6, 7}, res[4]; // 5 2 3 2
+            //int r1[4] = {1, 1, 8, 4}, r2[4] = {4, 3, 2, 4}, res[4]; // 4 3 2 2
+            //int r1[4] = {1, 1, 4, 2}, r2[4] = {2, 1, 1, 1}, res[4]; // 2 1 1 1
+            //int r1[4] = {1, 1, 1, 1}, r2[4] = {2, 2, 1, 1}, res[4]; // 0 0 0 0
+            //int r1[4] = {1, 1, 3, 1}, r2[4] = {3, 1, 3, 1}, res[4]; // 3 1 1 1
+            //int r1[4] = {1, 0, 1, 2}, r2[4] = {1, 1, 1, 2}, res[4]; // 1 1 1 1
+            //int r1[4] = {1, 1, 1, 1}, r2[4] = {1, 1, 1, 1}, res[4]; // 1 1 1 1
+            //int r1[4] = {-4, -3, 3, 2}, r2[4] = {-2, -2, 2, 2}, res[4]; // -2 -2 1 1
+            //int r1[4] = {-4, -3, 6, 4}, r2[4] = {1, -2, 3, 4}, res[4]; // 1 -2 1 3
+
             int r1[4] = {}, r2[4] = {}, res[4];
 
-            cout<<"Ingrese los datos del primer rectangulo en orden:"<<endl; cin>>r1[0]>>r1[1]>>r1[2]>>r1[3];
-            cout<<"Ingrese los datos del segundo rectangulo en orden:"<<endl; cin>>r2[0]>>r2[1]>>r2[2]>>r2[3];
+            //cout<<"Ingrese los datos del primer rectangulo en orden:"<<endl; cin>>r1[0]>>r1[1]>>r1[2]>>r1[3];
+            //cout<<"Ingrese los datos del segundo rectangulo en orden:"<<endl; cin>>r2[0]>>r2[1]>>r2[2]>>r2[3];
 
             calculate_rectangles_intersection(r1, r2, res);
 
@@ -359,7 +390,7 @@ int main()
             break;
         }
 
-        case 17:{ //Problema 17 *** optimizar, version de arduino
+        case 17:{ //Problema 17
 
             cout<<"Ingrese un numero: "; cin>>size;
 
@@ -374,11 +405,15 @@ int main()
             break;
         }
 
+        case 18:{ //Problema 18 *** hacer sin recorrer todas = 1 unidad gratis
+
+            break;
+        }
+
         case -1:{ //salida del programa
             loop = false;
                     break;
         }
-
         }//fin switch problemas
     }//fin while problemas
     return 0;

@@ -139,7 +139,7 @@ void clone_array(char *str, char *res, int size){
     if(res[0] == '\0') str[0] = '\0'; // si res esta vacio
 
     else{
-        for(int k = 0; ; k++){ //clona el arreglo res en el arreglo str
+        for(int k = 0; ; k++){ // clona el arreglo res en el arreglo str
 
             str[k] = res[k];
 
@@ -449,6 +449,130 @@ void print_ref(char ref[15][20]){
     }
 }
 
+//Problema 12
+bool majic_square_verify(int size){
+
+    bool fil =  false, col = false, diag = false, rep = false;
+    int sum;
+
+    int** square = new int*[size]; // crea el cuadrado
+    for(int i = 0; i < size; ++i)
+        square[i] = new int[size];
+
+    fill_majic_square(size, square);
+
+    sum = get_constant(square, size);
+
+    rep = verify_no_repetition(square, size);
+
+    if(rep == true){
+        col = verify_col(square, size, sum);
+        fil = verify_fil(square, size, sum);
+        diag = verify_diag(square, size, sum);
+    }
+
+    for(int i = 0; i < size; ++i) { // borrar el cuadrado
+        delete[] square[i];
+    }
+    delete[] square;
+
+    if(col == true && fil == true && diag == true && rep == true) return true;
+    else return false;
+}
+
+void fill_majic_square(int size, int **square){
+
+    for(int i = 0; i<size; i++){
+
+        for(int j = 0; j<size; j++){
+
+            cout<<"Ingrese el elemento "<<i<<", "<<j<<": "; cin>>square[i][j];
+
+        }
+    }
+}
+
+bool verify_col(int **square, int size, int sum){
+
+    int temp = 0;
+
+    for(int j = 0; j<size; j++){
+        for(int i = 0; i<size; i++){
+
+            temp += square[i][j];
+
+        }
+        if(temp == sum) temp = 0;
+        else return false;
+    }
+    return true;
+}
+
+bool verify_fil(int **square, int size, int sum){
+
+    int temp = 0;
+
+    for(int i = 0; i<size; i++){
+        for(int j = 0; j<size; j++){
+
+            temp += square[i][j];
+
+        }
+        if(temp == sum) temp = 0;
+        else return false;
+    }
+    return true;
+}
+
+bool verify_diag(int **square, int size, int sum){
+
+    int temp = 0;
+
+    for(int i = 0; i<size; i++) temp += square[i][size - i -1]; //diagional principal
+
+    if(temp == sum) temp = 0;
+    else return false;
+
+    for(int i = 0; i<size; i++) temp += square[i][size - i -1]; //otra diagonal
+
+    if(temp != sum) return false;
+
+    return true;
+}
+
+int get_constant(int **square, int size){
+
+    int sum = 0;
+
+    for(int k = 0; k<size; k++) sum += square[k][0];
+
+    return sum;
+}
+
+bool verify_no_repetition(int **square, int size){
+
+    int temp[size*size], index = 0;
+
+    for(int i = 0; i<size; i++){ //convertir al cuadrado en una tira
+        for(int j = 0; j<size; j++){
+
+            temp[index] = square[i][j];
+            index++;
+
+        }
+    }
+
+    for (int i = 0; i < size - 1; i++) { //verificar si hay repetidos
+
+        for (int j = i + 1; j < size; j++) {
+
+            if (temp[i] == temp[j]) return false;
+
+        }
+    }
+    return true;
+}
+
 //Problema 14
 void fill_matrix(short matrix[5][5]){
 
@@ -517,6 +641,29 @@ void print_matrix(short matrix[5][5]){
 //Problema 15
 void calculate_rectangles_intersection(int *r1, int *r2, int *res){
 
+    int traslation_x = 0, traslation_y = 0; // hay  que cambiar las traslaciones si algun numero es menor que 0
+
+    if(r1[0]<0 || r2[0]<0){ //traslacion en x
+
+        if(r1[0]<r2[0]) traslation_x = abs(r1[0]);
+        else traslation_x = abs(r2[0]);
+
+    }
+
+    if(r1[1]<0 || r2[1]<0){ //traslacion en y
+
+        if(r1[1]<r2[1]) traslation_y = abs(r1[1]);
+        else traslation_y = abs(r2[1]);
+
+    }
+
+    //Aplicar las traslaciones
+    r1[0] += traslation_x;
+    r2[0] += traslation_x;
+
+    r1[1] += traslation_y;
+    r2[1] += traslation_y;
+
     int c1[2], c2[2];
     lower_right_corner(r1, c1); // se encuentran las esquinas inferiores derechas de los rectangulos
     lower_right_corner(r2, c2);
@@ -547,6 +694,9 @@ void calculate_rectangles_intersection(int *r1, int *r2, int *res){
 
     calculate_intersection(plano, x_max, y_max, res, fill);
 
+    //Desaplicar las traslaciones
+    res[0] -= traslation_x;
+    res[1] -= traslation_y;
 
         for(int i = 0; i < y_max; ++i) { //borrar el plano
             delete[] plano[i];
@@ -685,49 +835,30 @@ int get_divisores_sum(int n){
 
     int res = 0;
 
-    if(n%2 == 0){ //si es par
+        for (int i=1, temp; i<=sqrt(n); i++)
+        {
+            if (n%i == 0)
+            {
+                temp = n/i;
 
-        for(int i = 1; i <= (n/2); i++){
+                if (temp == i) res += i;
 
-            if(n%i == 0) res += i;
-
+                else res += i + temp;
+            }
         }
-    }
-
-    else{ //si es impar
-        for(int i = 1; i <= (n/3); i++){
-
-            if(n%i == 0) res += i;
-
-        }
-    }
-
-    return res;
+    return res - n;
 }
 
-double sum_friendly_smaller_than_n(int n){
+long sum_friendly_smaller_than_n(int n){
 
-    //la cantidad de iteraciones equivle a (n-220) C 2 + lo que tarde el calculo de divisores
+    long sum = 0;
 
-    n--;
-    int b = n-1;
-    double sum = 0;
-    int sum_a, sum_b;
-
-    for(; n>=220; n--){
-
-        sum_a = get_divisores_sum(n);
-
-        for(int k = b; k>=220; k--){
-
-            sum_b = get_divisores_sum(k);
-
-              if(sum_a == k && sum_b == n){
-                sum += n+k;
-                cout<<n<<' '<<k<<endl;
-              }
+    for (int num1 = 220;  num1 < n;  ++num1) {
+        int num2 = get_divisores_sum(num1);
+        if (num2 > num1 && num1 == get_divisores_sum(num2))  {
+           //cout<<num1<<' '<<num2<<endl;
+           sum+= num1+num2;
         }
-        b--;
     }
     return sum;
 }
