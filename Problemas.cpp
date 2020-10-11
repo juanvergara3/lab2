@@ -573,6 +573,73 @@ bool verify_no_repetition(int **square, int size){
     return true;
 }
 
+//Problema 13
+int number_of_stars(char choice){
+
+    int size_i = 6, size_j = 8, count = 0;
+
+    if(choice == 'm' || choice == 'M'){ //para el llenado manual de la imagen
+        cout<<"Ingrese el alto de la imagen en pixeles: "; cin>>size_i;
+        cout<<"Ingrese el ancho de la imagen en pixeles: "; cin>>size_j;
+    }
+
+    if(size_i>0 && size_j>0){
+
+        int** picture= new int*[size_i]; // crea el cuadrado
+        for(int i = 0; i < size_i; ++i)
+            picture[i] = new int[size_j];
+
+        if(choice == 'm' || choice == 'M')  fill_picture(picture, size_i, size_j);
+
+        else if (choice == 'd' || choice == 'D'){ //Modo de demostracion
+            int array[48] = {0, 3, 4, 0, 0, 0, 6, 8,
+                             5, 13, 6, 0, 0, 0, 2, 3,
+                             2, 6, 2, 7, 3, 0, 10, 0,
+                             0, 0, 4, 15, 4, 1, 6, 0,
+                             0, 0, 7, 12, 6, 9, 10, 4,
+                             5, 0, 6, 10, 6, 4, 8, 0};
+
+            for(int i = 0, index = 0; i<size_i; i++){ //recrea la imagen que aparece en el pdf
+                for(int j = 0; j<size_j; j++, index++){
+
+                    picture[i][j] = array[index];
+
+                }
+            }
+        }
+        else return -1;
+
+        for(int i = 1; i<size_i - 1; i++){ //cuenta las estrellas
+
+            for(int j = 1; j<size_j - 1; j++){
+
+                if((picture[i][j]+picture[i][j-1]+picture[i][j+1]+picture[i-1][j]+picture[i+1][j])/5 >6){
+
+                    count++;
+
+                }
+            }
+        }
+
+        for(int i = 0; i < size_i; ++i) delete[]  picture[i]; //borrar la imagen
+        delete[]  picture;
+    }
+
+    return count;
+
+}
+
+void fill_picture(int **picture, int size_i, int size_j){
+
+    for(int i = 0; i<size_i; i++){
+        for(int j = 0; j<size_j; j++){
+
+            cout<<"Ingrese el pixel ("<<i<<','<<j<<"): "; cin>>picture[i][j];
+
+        }
+    }
+}
+
 //Problema 14
 void fill_matrix(short matrix[5][5]){
 
@@ -863,7 +930,24 @@ long sum_friendly_smaller_than_n(int n){
     return sum;
 }
 
+//Problema 18
+void n_permutation(int n){
 
+      int digits[] = {0,1,2,3,4,5,6,7,8,9};
+
+      for(int count = 1; count<n; count++){
+
+          next_permutation(digits,digits+10);
+
+      }
+
+      cout<<"La permutacion numero "<<n<<" es: ";
+
+      for(int i = 0; i < 10; i++)
+          cout << digits[i];
+      cout<<endl;
+
+}
 
 
 

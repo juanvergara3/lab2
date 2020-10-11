@@ -39,6 +39,9 @@ int main()
     short j, i_short;
     short position[2];
 
+    //Problema 13
+    char choice;
+
     //Problema 14
     short matrix_5x5[5][5];
 
@@ -306,7 +309,15 @@ int main()
             break;
         }
 
-        case 13:{//Problema 13 ***
+        case 13:{//Problema 13
+
+            cout<<"Ingrese 'm' para llenar la imagen manualmente, o 'd' para usar la imagen de demostracion por defecto (PDF): "; cin>>choice;
+
+            amount =number_of_stars(choice);
+
+            if(amount < 0) cout<<"Error! parametros incorrectos"<<endl;
+
+            else cout<<"\nCantidad de posibles estrellas: "<<amount<<endl;
 
             break;
         }
@@ -405,7 +416,13 @@ int main()
             break;
         }
 
-        case 18:{ //Problema 18 *** hacer sin recorrer todas = 1 unidad gratis
+        case 18:{ //Problema 18
+
+            cout<<"Que permutacion desea ver?: "; cin>>size;
+
+            if(size>0) n_permutation(size);
+
+            else cout<<"Ingrese un entero positivo!"<<endl;
 
             break;
         }

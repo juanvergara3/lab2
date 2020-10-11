@@ -3,6 +3,7 @@
 #include <time.h>
 #include <math.h>
 #include <bits/stdc++.h>
+#include <algorithm>
 using namespace  std;
 
 //Problema 1
@@ -57,6 +58,8 @@ int get_constant(int**, int);
 bool verify_no_repetition(int**, int);
 
 //Problema 13
+int number_of_stars(char);
+void fill_picture(int**, int, int);
 
 //Problema 14
 void fill_matrix(short matrix[5][5]);
@@ -80,3 +83,11 @@ int get_divisores_sum(int);
 long sum_friendly_smaller_than_n(int);
 
 //Problema 18
+void n_permutation(int n);
+
+
+
+
+
+
+
