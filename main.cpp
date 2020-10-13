@@ -29,9 +29,6 @@ int main()
     char str[80]={};
     char num[80]={};
 
-    //Problema 9
-    int array_p9[10] = {8,7,5,1,2,3,9,5,7,2};
-
     //Problema 11
     char ref[15][20];
     char action;
@@ -136,7 +133,7 @@ int main()
 
             if (amount>=0) calculo_devuelta(amount);
 
-            else cout<<"Ingrese una cantidad positiva! "<<endl;
+            else cout<<"\nIngrese una cantidad positiva! "<<endl;
 
             break;
         }
@@ -223,15 +220,43 @@ int main()
 
         case 9:{ //Problema 9
 
-            cout<<"Para el arreglo {";
-            for(int k = 0; k<10; k++) cout<<(array_p9[k])<<' ';
+            while(true){
+               cout<<"Ingrese el tamaño del arreglo: "; cin>>size;
+
+               if(size>0) break;
+               else cout<<"Ingrese un entero positivo!"<<endl;
+            }
+
+            int *array_p9 = new int[size];
+            int *n = new int;
+
+            for(int k = 0; k<size;k++){
+                while(true){
+                    cout<<"Ingrese el dato numero "<<k+1<<": "; cin>>array_p9[k];
+
+                   if(array_p9[k] >= 0) break;
+                   else cout<<"Ingrese un entero positivo!"<<endl;
+                }
+            }
+
+            while(true){
+               cout<<"Ingrese la cantidad de digitos con que desea partir el arreglo: "; cin>>*n;
+
+               if(*n>0) break;
+               else cout<<"Ingrese un entero positivo!"<<endl;
+            }
+
+            cout<<"\nPara el arreglo {";
+            for(int k = 0; k<size; k++)
+                cout<<(array_p9[k])<<' ';
             cout<<"\b}"<<endl;
 
-            for(int i = 1; i < 10; i++){
-               cout<<"n = "<<i<<": suma = ";
-               amount = separate_and_sum(i, array_p9, 10);
-               cout<<amount<<endl;
-            }
+            cout<<"n = "<<*n<<": suma = ";
+            amount = separate_and_sum(*n, array_p9, size);
+            cout<<amount<<endl;
+
+            delete[] array_p9;
+            delete n;
 
             break;
         }
@@ -263,7 +288,7 @@ int main()
               while(compare){
                   cout<<"Ingrese 'r' para reservar, 'c' para cancelar, 'v' para visualizar y 's' para salir: ";cin>>action;
 
-                  if(int(action) >= 65 && int(action) <= 90) action = char(int(action) + 32); //convierte action en mayus
+                  if(int(action) >= 65 && int(action) <= 90) action = char(int(action) + 32); //convierte action en minuscula
 
                   if(action == 'r' || action == 'c'){
 
@@ -299,8 +324,8 @@ int main()
 
                 compare = majic_square_verify(size);
 
-                if(compare == true) cout<<"Es un cuadrado magico"<<endl;
-                else cout<<"No es un cuadrado magico"<<endl;
+                if(compare == true) cout<<"Es un cuadrado magico!"<<endl;
+                else cout<<"No es un cuadrado magico!"<<endl;
 
             }
 
@@ -315,9 +340,7 @@ int main()
 
             amount =number_of_stars(choice);
 
-            if(amount < 0) cout<<"Error! parametros incorrectos"<<endl;
-
-            else cout<<"\nCantidad de posibles estrellas: "<<amount<<endl;
+            cout<<"\nCantidad de posibles estrellas: "<<amount<<endl;
 
             break;
         }
@@ -367,14 +390,19 @@ int main()
 
             int r1[4] = {}, r2[4] = {}, res[4];
 
-            //cout<<"Ingrese los datos del primer rectangulo en orden:"<<endl; cin>>r1[0]>>r1[1]>>r1[2]>>r1[3];
-            //cout<<"Ingrese los datos del segundo rectangulo en orden:"<<endl; cin>>r2[0]>>r2[1]>>r2[2]>>r2[3];
+            cout<<"Ingrese los datos del primer rectangulo en orden:"<<endl; cin>>r1[0]>>r1[1]>>r1[2]>>r1[3];
+            cout<<"Ingrese los datos del segundo rectangulo en orden:"<<endl; cin>>r2[0]>>r2[1]>>r2[2]>>r2[3];
 
-            calculate_rectangles_intersection(r1, r2, res);
+            if(r1[2]>0 && r1[3]>0 && r2[2]>0 && r2[3]>0){
 
-            cout<<"La interseccion es: {";
-            for(int k = 0; k<4; k++) cout<<res[k]<<", ";
-            cout<<"\b\b}"<<endl;
+                calculate_rectangles_intersection(r1, r2, res);
+
+                cout<<"La interseccion es: {";
+                for(int k = 0; k<4; k++) cout<<res[k]<<", ";
+                cout<<"\b\b}"<<endl;
+
+            }
+            else cout<<"Ingrese medidas validas!"<<endl;
 
             break;
         }
@@ -389,14 +417,12 @@ int main()
 
                 *result = travel_grid(size);
 
-                cout<<"Para un malla de "<<size<<'x'<<size<<" hay "<<*result<<" caminos"<<endl;
+                cout<<"Para un malla de "<<size<<'x'<<size<<" hay "<<*result<<" caminos posibles"<<endl;
 
                 delete result;
 
             }
             else cout<<"Ingrese un entero positivo (para valores cercanos y mayores que 30 los valores de desbordan y se obtienen resultados indeterminados)!"<<endl;
-
-
 
             break;
         }

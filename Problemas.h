@@ -83,7 +83,7 @@ int get_divisores_sum(int);
 long sum_friendly_smaller_than_n(int);
 
 //Problema 18
-void n_permutation(int n);
+void n_permutation(int);
 
 
 

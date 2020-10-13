@@ -3,13 +3,13 @@
 //Problema 1
 void calculo_devuelta(int amount){
 
-int devueltas[10] ={50000, 20000, 10000, 5000, 2000, 1000, 500, 200, 100, 50};
+    int devueltas[10] ={50000, 20000, 10000, 5000, 2000, 1000, 500, 200, 100, 50};
 
-for(int k = 0; k<10; k++){
-    cout<<devueltas[k]<<": "<<amount/devueltas[k]<<endl;
-    amount %= devueltas[k];
-}
-cout<<"Faltante: "<<amount<<endl;
+    for(int k = 0; k<10; k++){
+        cout<<devueltas[k]<<": "<<amount/devueltas[k]<<endl;
+        amount %= devueltas[k];
+    }
+    cout<<"Faltante: "<<amount<<endl;
 
 }
 
@@ -33,7 +33,6 @@ void rand_letter_array(char *letter_array){
 
 void count_letter_array(char *letter_array){
 
-
     for(short letter = 65, count = 0; letter<=90; letter++){
 
         for(short k = 0; k<201; k++){
@@ -43,10 +42,7 @@ void count_letter_array(char *letter_array){
         }
         cout<<char(letter)<<": "<<count<<endl;
         count = 0;
-
-
     }
-
 }
 
 //Problema 3
@@ -69,14 +65,15 @@ bool string_compare(char *str1, char *str2){
 //Problema 4
 int str_to_int(char *str){
 
-    int result, i = 0, sign = 1;
+    int result, index = 0, sign = 1;
 
-    if(*str == '-') {
+    if(str[0] == '-') {
       sign = -1;
-      i = 1;
+      index = 1;
     }
 
-    for (; str[i]  != '\0'; ++i) result = result * 10 + str[i] - '0';
+    for (; str[index]  != '\0'; ++index)
+        result = result * 10 + str[index] - '0';
 
     return  result*sign;
 }
@@ -99,7 +96,8 @@ void int_to_str(int number, char *str){
         size++;
     }
 
-    for(size-- ;number>0; number /= 10, size--) str[size] = number%10 + '0';
+    for(size-- ;number>0; number /= 10, size--)
+        str[size] = number%10 + '0';
 }
 
 //Problema 6
@@ -121,7 +119,7 @@ int size_of_array(char *str){
 
     int size = 0;
 
-    for(int k = 0;;k++){ // calcula el tamaño del arreglo str
+    for(int k = 0;;k++){ // calcula el tamaño del arreglo de caracteres str
 
         if(str[k] != '\0') size++;
         else{
@@ -149,8 +147,6 @@ void clone_array(char *str, char *res, int size){
             }
         }
     }
-
-
 }
 
 void delete_rep_letters(char *str){
@@ -183,22 +179,23 @@ void delete_rep_letters(char *str){
         }
 
         else count = 0; //si esta repetido reseta el contador
+
     }//final del for que recorre str
 
     clone_array(str, res, size);
 
-delete[]res;
+    delete[]res;
 }
 
 //Problema 8
 void separate_int_from_char(char *str, char *num){
 
-    int num_index = 0, size, res_index = 0;
+    int num_index = 0, res_index = 0, size;
     char temp;
 
     size = size_of_array(str);
 
-     char *res = new char[size]; //define res del mismo tamaño que str
+    char *res = new char[size]; //define res del mismo tamaño que str
 
     for(int k = 0 ;; k++){ //recorre str
 
@@ -220,8 +217,6 @@ void separate_int_from_char(char *str, char *num){
     res[res_index] = '\0';
     num[num_index] = '\0';
 
-    if(res_index == 0) res[0] = '\0';
-
     clone_array(str, res, size);
 
     delete[]res;
@@ -230,10 +225,8 @@ void separate_int_from_char(char *str, char *num){
 //Problema 9
 int separate_and_sum(int n, int *array, int length){
 
-
     int count = 1, min = length - n - 1, max, copy_index = 0, copy_size = length;
-    int potencia = pow(10, n-1), sum = 0, number = 0; //calcula el numero por el que hay que multiplicar cada digito
-
+    int potencia = pow(10, n-1), sum = 0, number = 0; //calcula el numero por el que hay que multiplicar cada digito (pow)
 
     if(length%n != 0){ //si el array no se puede partir en numeros de n digitos
 
@@ -245,9 +238,9 @@ int separate_and_sum(int n, int *array, int length){
 
     int *copy = new int[copy_size]; //crea el arreglo en que se va a clonar array
 
-    if(length != copy_size)  for(int i = 0; i < copy_index; i++) copy[i] = 0; //pone 0's al principio si clone y array no son de igual tamaño
+    if(length != copy_size)  for(int i = 0; i < copy_index; i++) copy[i] = 0; //pone 0's al principio si copy y array no son de igual tamaño
 
-    for(int i = 0, j = copy_index; i <= length; i++, j++) copy[j] = array[i]; //clona el array
+    for(int i = 0, j = copy_index; i < length; i++, j++) copy[j] = array[i]; //clona el array
 
     length = copy_size - 1;
     max = length;
@@ -258,20 +251,18 @@ int separate_and_sum(int n, int *array, int length){
 
             min = length;
 
-            for(int w = min, aux = potencia; w<= max; w++, aux /= 10){
+            for(int w = min, aux = potencia; w<= max; w++, aux /= 10){ //crea numeros de n digitos
 
-                number +=copy[w]*aux;
+                number += copy[w]*aux;
 
             }
-
             count = 0;
-            sum += number;
+            sum += number; //va sumando los numeros
             number = 0;
-            max = length; //redefine el indice maximo
+            max = length;
         }
-
-
     }
+
     delete[] copy;
     return sum;
 }
@@ -281,14 +272,14 @@ void rom_to_arab(char *str){
 
     int size = size_of_array(str), res = 0;
 
-    size--;
+    size--; // "descarta" la posicion del \0
 
     short normalized[size], current, next;
 
     char temp_char;
 
     //Normalizacion:
-    for(int k = 0; k<size; k++){ //convierte str cada letra de str a su equivalente decimal, en un arreglo de int (lo "normaliza")
+    for(int k = 0; k<size; k++){ //convierte cada letra de str a su equivalente decimal, en un arreglo de short (lo "normaliza")
 
         temp_char = str[k];
 
@@ -321,37 +312,35 @@ void rom_to_arab(char *str){
             break;
         }
         } //final switch
-    } //final for de "normalizacion"
+    } //final del for de "normalizacion"
 
 
-    //Transformacion numerica
+    //Transformacion numerica:
     for(int k = 0; k<size; k++){ //usa las reglas de los numeros romanos y genera el numero en un int
 
         current = normalized[k];
 
-        if(k != size - 1){ //reglas de numeros romanos
+        if(k != size - 1){ // para todos lo numeros excepto el ultimo
 
-             next = normalized[k+1];
+            next = normalized[k+1];
 
-            if( next <= current) res += current;
+            if( next <= current ) res += current; //reglas de numeros romanos
 
             else res -= current;
+
         }
 
         else{ //para el ultimo numero que siempre se suma
-
            res += current;
-
         }
     }
 
-    //conversion int ---> char[]
+    //conversion int ---> char[]:
     int_to_str(res, str);
 
     size = count_digit(res);
 
     str[size] = '\0';
-
 }
 
 bool validate_rom(char*str){
@@ -379,7 +368,6 @@ void uppercase(char *str){
         if(temp>=97 && temp<=122) str[k] = char(temp - 32);
 
     }
-
 }
 
 int count_digit(int n){
@@ -412,8 +400,8 @@ void action_ref(char ref[15][20], short *position, char action){
           cout<<"Cancelado correctamente"<<endl;
         }
         else cout<<"El asiento ya esta vacio!"<<endl;
-
     }
+
     else if (action == 'r') {
         if(ref[i][j] == '-') {
           ref[i][j] = '+';
@@ -429,10 +417,9 @@ void generate_ref(char ref[15][20]){
 
         for(int j = 0; j<20; j++){ //recorre columnas
 
-            ref[i][j] = '-';
+            ref[i][j] = '-'; //definie todas las sillas vacias por defecto
 
         }
-
     }
 }
 
@@ -553,7 +540,7 @@ bool verify_no_repetition(int **square, int size){
 
     int temp[size*size], index = 0;
 
-    for(int i = 0; i<size; i++){ //convertir al cuadrado en una tira
+    for(int i = 0; i<size; i++){ //convertir al cuadrado en una tira (arreglo unidimensional)
         for(int j = 0; j<size; j++){
 
             temp[index] = square[i][j];
@@ -593,11 +580,11 @@ int number_of_stars(char choice){
 
         else if (choice == 'd' || choice == 'D'){ //Modo de demostracion
             int array[48] = {0, 3, 4, 0, 0, 0, 6, 8,
-                             5, 13, 6, 0, 0, 0, 2, 3,
-                             2, 6, 2, 7, 3, 0, 10, 0,
-                             0, 0, 4, 15, 4, 1, 6, 0,
-                             0, 0, 7, 12, 6, 9, 10, 4,
-                             5, 0, 6, 10, 6, 4, 8, 0};
+                                     5, 13, 6, 0, 0, 0, 2, 3,
+                                     2, 6, 2, 7, 3, 0, 10, 0,
+                                     0, 0, 4, 15, 4, 1, 6, 0,
+                                     0, 0, 7, 12, 6, 9, 10, 4,
+                                     5, 0, 6, 10, 6, 4, 8, 0};
 
             for(int i = 0, index = 0; i<size_i; i++){ //recrea la imagen que aparece en el pdf
                 for(int j = 0; j<size_j; j++, index++){
@@ -607,13 +594,17 @@ int number_of_stars(char choice){
                 }
             }
         }
-        else return -1;
+
+        else{
+            cout<<"Opcion invalida!"<<endl;
+            return 0;
+        }
 
         for(int i = 1; i<size_i - 1; i++){ //cuenta las estrellas
 
             for(int j = 1; j<size_j - 1; j++){
 
-                if((picture[i][j]+picture[i][j-1]+picture[i][j+1]+picture[i-1][j]+picture[i+1][j])/5 >6){
+                if((picture[i][j]+picture[i][j-1]+picture[i][j+1]+picture[i-1][j]+picture[i+1][j])/5 > 6){
 
                     count++;
 
@@ -625,8 +616,9 @@ int number_of_stars(char choice){
         delete[]  picture;
     }
 
-    return count;
+    else cout<<"Tamaño invalido!"<<endl;
 
+    return count;
 }
 
 void fill_picture(int **picture, int size_i, int size_j){
@@ -673,8 +665,6 @@ void rotate_matrix(short matrix[5][5]){
 
     for(int i = 0; i<5; i++, j_copy++){ //recorre filas
 
-
-
         for(int j = 0; j<5; j++, i_copy--){ //recorre columnas
 
             matrix[i][j] = matrix_copy[i_copy][j_copy]; //rota la matriz
@@ -683,7 +673,7 @@ void rotate_matrix(short matrix[5][5]){
         i_copy = 4;
     }
 
-    for(int i = 0; i < 5; ++i) delete[] matrix_copy[i]; //borrar array para de la copia
+    for(int i = 0; i < 5; ++i) delete[] matrix_copy[i]; //borrar array de la copia
     delete[] matrix_copy;
 }
 
@@ -708,7 +698,7 @@ void print_matrix(short matrix[5][5]){
 //Problema 15
 void calculate_rectangles_intersection(int *r1, int *r2, int *res){
 
-    int traslation_x = 0, traslation_y = 0; // hay  que cambiar las traslaciones si algun numero es menor que 0
+    int traslation_x = 0, traslation_y = 0; // hay  que cambiar las traslaciones si alguna coordenada es menor que 0
 
     if(r1[0]<0 || r2[0]<0){ //traslacion en x
 
@@ -788,7 +778,6 @@ int max(int *x){
 
     }
     return big;
-
 }
 
 void draw_rectangle(int *r, int **plano, short fill){
@@ -801,9 +790,7 @@ void draw_rectangle(int *r, int **plano, short fill){
           else plano[j][i] = fill;
 
         }
-
     }
-
 }
 
 void fill_plane(int **plano, int x_max, int y_max){
@@ -835,10 +822,12 @@ void calculate_intersection(int **plano, int x_max, int y_max, int *res, short f
             }
             else if(current == fill && corner == true) area++; //va sumando al area del rectangulo
 
-            if(current == fill && wide == true) ancho++; //va sumando a la
+            if(current == fill && wide == true) ancho++; //va sumando al ancho del rectangulo
         }
+
         if(wide == true) wide = false; //deja de contar despues de que cuenta las columnas una vez
     }
+
     if(ancho>0){
         res[2] = ancho;
         res[3] = area/ancho;
@@ -870,31 +859,32 @@ Por formula se desbordan los valores ya que son numeros absurdamente grandes
 
     return res;
 
-En cada iteración se dividen las variables actuales que tienen el valor de los productos por su mcd. Asi se evita el desbordamiento (para valores grandes se desborda igual (n>~30))
+En cada iteración se dividen las variables actuales que tienen el valor de los productos por su mcd.
+Asi se evita el desbordamiento (para valores grandes se desborda de igual modo (n>~30))
 Esto tambien evita el calculo de factoriales.
 */
 
     unsigned long long p = 1, k = 1;
 
-        if (r != 0) {
-            while (r) {
-                p *= n;
-                k *= r;
+    if (r != 0) {
+        while (r) {
+            p *= n;
+            k *= r;
 
-                unsigned long long m = __gcd(p, k); // maximo comun divisor de p y k
+            unsigned long long m = __gcd(p, k); // maximo comun divisor de p y k
 
-                p /= m;
-                k /= m;
+            p /= m;
+            k /= m;
 
-                n--;
-                r--;
-            }
+            n--;
+            r--;
         }
+    }
 
-        else
-            p = 1;
+    else
+        p = 1;
 
-        return p;
+    return p;
 }
 
 //Problema 17
@@ -902,23 +892,25 @@ int get_divisores_sum(int n){
 
     int res = 0;
 
-        for (int i=1, temp; i<=sqrt(n); i++)
+    for (int i=1, temp; i<=sqrt(n); i++)
+    {
+        if (n%i == 0)
         {
-            if (n%i == 0)
-            {
-                temp = n/i;
+            temp = n/i;
 
-                if (temp == i) res += i;
+            if (temp == i) res += i;
 
-                else res += i + temp;
-            }
+            else res += i + temp;
         }
+    }
     return res - n;
 }
 
 long sum_friendly_smaller_than_n(int n){
 
     long sum = 0;
+
+    cout<<"Procesando..."<<endl;
 
     for (int num1 = 220;  num1 < n;  ++num1) {
         int num2 = get_divisores_sum(num1);
