@@ -4,6 +4,14 @@
 
 using namespace std;
 
+
+//Ejercicios tinkercad
+//https://www.tinkercad.com/things/7FrvmogmtUP
+
+//Problemas tinkercad
+//https://www.tinkercad.com/things/cdfRpy66VrY
+
+
 int main()
 {
     short selec;
